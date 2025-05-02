@@ -22,7 +22,6 @@ cog_tiler = TilerFactory(
     extensions=[
         cogValidateExtension(),
         cogViewerExtension(),
-        stacExtension(),
     ],
 )
 
@@ -33,6 +32,7 @@ stac_tiler = MultiBaseTilerFactory(
     reader=STACReader,
     router_prefix="/stac",
     extensions=[
+        stacExtension(),
         stacViewerExtension(),
     ],
 )
