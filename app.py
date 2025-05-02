@@ -1,6 +1,3 @@
-import argparse
-from pathlib import Path
-
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from rio_tiler.colormap import ColorMaps
