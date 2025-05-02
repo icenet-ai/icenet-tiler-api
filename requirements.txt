@@ -1,0 +1,6 @@
+fastapi[standard]
+honcho
+rio-tiler
+titiler
+uvicorn[standard]
+whitenoise

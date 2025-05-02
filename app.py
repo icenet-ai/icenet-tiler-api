@@ -3,7 +3,6 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from fastapi.staticfiles import StaticFiles
 from rio_tiler.colormap import ColorMaps
 from rio_tiler.io import Reader, STACReader
 
@@ -20,24 +19,7 @@ from titiler.extensions import (
 )
 from titiler.mosaic.errors import MOSAIC_STATUS_CODES
 
-# Parse COG file directory from command line
-parser = argparse.ArgumentParser(
-    description="Start Titiler + FastAPI with configurable data directory."
-)
-parser.add_argument(
-    "-d",
-    "--data-dir",
-    type=str,
-    required=False,
-    default=Path("./data/"),
-    help="Directory containing STAC catalogue and COG files.",
-)
-args, _ = parser.parse_known_args()
-
 app = FastAPI()
-
-# Store data directory in app state
-app.state.DATA_DIR = args.data_dir.resolve()
 
 # Add exception handlers - Won't show lots of missingtiles warnings when outside of bounds.
 add_exception_handlers(app, DEFAULT_STATUS_CODES)
@@ -80,7 +62,3 @@ async def redirect_to_docs():
 @app.get("/utils/colormaps")
 async def colormaps():
     return ColorMaps().list()
-
-
-# Add data directory to the main FastAPI app
-app.mount("/data", StaticFiles(directory=app.state.DATA_DIR), name="data")
