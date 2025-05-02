@@ -41,11 +41,9 @@ app.include_router(
     stac_tiler.router, prefix="/stac", tags=["SpatioTemporal Asset Catalog"]
 )
 
-@app.get("/")
-def root():
-    return {
-        "message": "Use /tiles/{hemisphere}/{forecast_date}/{leadtime}/tilejson.json to fetch TileJSON"
-    }
+@app.get("/", response_class=RedirectResponse)
+async def redirect_to_docs():
+    return "/docs"
 
 from rio_tiler.colormap import ColorMaps
 
