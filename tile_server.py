@@ -1,8 +1,5 @@
-from pathlib import Path
-
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
-from pystac import Catalog
 from rio_tiler.io import Reader, STACReader
 
 from titiler.core.factory import (
@@ -17,13 +14,6 @@ from titiler.extensions import (
 )
 
 app = FastAPI()
-
-# Load STAC Catalog
-STAC_PATH = Path("data/stac/catalog.json")
-COG_DIR = Path("data/cogs")
-
-# Load the STAC catalog from the local file
-catalog = Catalog.from_file(STAC_PATH)
 
 # Create a tiler for COGs
 cog_tiler = TilerFactory(
@@ -50,7 +40,6 @@ stac_tiler = MultiBaseTilerFactory(
 app.include_router(
     stac_tiler.router, prefix="/stac", tags=["SpatioTemporal Asset Catalog"]
 )
-
 
 @app.get("/")
 def root():
