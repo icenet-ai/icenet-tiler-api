@@ -18,6 +18,8 @@ This codebase contains two apps which are to be run concurrently, `app.py` and `
 
 ## Installation and Setup
 
+If you are attempting to run this independent of the orchestrating repository (`icenet-dashboard-meta`), then, make sure to first convert the IceNet netCDF predictions to COG using `icenet-dashboard-preprocessor` first which will create a `data/` directory at the root of this repository (assuming you're running the conversion command from this path). Then, you can run this independent of the orchestrator repo.
+
 ### 1. Clone the repository
 
 ```bash
